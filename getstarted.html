@@ -1,0 +1,217 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Portfolio</title>
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: radial-gradient(circle at top, #0f2027, #0a0a0a);
+        color: white;
+        overflow-x: hidden;
+        cursor: none;
+    }
+
+    /* Background blur layers */
+    .bg-blur {
+        position: fixed;
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        filter: blur(120px);
+        opacity: 0.5;
+        z-index: 0;
+    }
+
+    .blur1 { background: #00ffcc; top: 10%; left: 10%; }
+    .blur2 { background: #007bff; bottom: 10%; right: 10%; }
+
+    /* Custom cursor */
+    .cursor {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 15px;
+        height: 15px;
+        border: 2px solid #00ffcc;
+        border-radius: 50%;
+        pointer-events: none;
+        transform: translate(-50%, -50%);
+        z-index: 9999;
+    }
+
+    header {
+        text-align: center;
+        padding: 50px 20px;
+        animation: fadeIn 2s ease-in-out;
+        position: relative;
+        z-index: 1;
+    }
+
+    header h1 {
+        font-size: 40px;
+        color: #00ffcc;
+        transition: transform 0.3s;
+    }
+
+    header h1:hover {
+        transform: rotateY(15deg) scale(1.1);
+    }
+
+    .typing {
+        border-right: 3px solid #00ffcc;
+        white-space: nowrap;
+        overflow: hidden;
+        display: inline-block;
+        animation: blink 0.7s infinite;
+    }
+
+    @keyframes blink {
+        0%, 50%, 100% { border-color: #00ffcc; }
+        25%, 75% { border-color: transparent; }
+    }
+
+    section {
+        padding: 40px 20px;
+        max-width: 900px;
+        margin: auto;
+        perspective: 1000px;
+        position: relative;
+        z-index: 1;
+    }
+
+    /* Glassmorphism card */
+    .card {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 20px;
+        margin: 15px 0;
+        border-radius: 15px;
+        box-shadow: 0 0 30px rgba(0,255,204,0.2);
+        transform: rotateX(20deg) translateY(50px);
+        opacity: 0;
+        animation: slideUp 1s forwards;
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .card:hover {
+        transform: rotateX(0deg) rotateY(10deg) scale(1.05);
+        box-shadow: 0 0 40px rgba(0,255,204,0.6);
+    }
+
+    .card:nth-child(2) { animation-delay: 0.2s; }
+    .card:nth-child(3) { animation-delay: 0.4s; }
+    .card:nth-child(4) { animation-delay: 0.6s; }
+
+    h2 {
+        color: #00ffcc;
+    }
+
+    .contact {
+        text-align: center;
+        margin-top: 40px;
+    }
+
+    footer {
+        text-align: center;
+        padding: 20px;
+        font-size: 14px;
+        color: #aaa;
+        position: relative;
+        z-index: 1;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+        to {
+            transform: rotateX(0deg) translateY(0);
+            opacity: 1;
+        }
+    }
+</style>
+</head>
+<body>
+
+<div class="bg-blur blur1"></div>
+<div class="bg-blur blur2"></div>
+
+<div class="cursor" id="cursor"></div>
+
+<header>
+    <h1>ROSHAN GOSWAMI</h1>
+    <p><span id="typing-text" class="typing"></span></p>
+</header>
+
+<section>
+    <h2>About Me</h2>
+    <div class="card">
+        <p>I am a passionate developer who loves building modern websites and applications using different technologies.</p>
+    </div>
+
+    <h2>Skills</h2>
+    <div class="card">HTML - Structure of websites</div>
+    <div class="card">CSS - Styling and animations</div>
+    <div class="card">JavaScript - Interactivity</div>
+    <div class="card">Python - Backend and scripting</div>
+
+    <h2>Contact</h2>
+    <div class="card contact">
+        <p>Email: <a href="mailto:your@email.com">roshan972313@email.com</a></p>
+        <p>Phone: +91-8758150649</p>
+    </div>
+</section>
+
+<footer>
+    © 2026 Your Name. All rights reserved.
+</footer>
+
+<script>
+    const texts = [
+        "I am a Web Developer...",
+        "I build modern websites...",
+        "I love TO BUILD 3D WEB..."
+    ];
+
+    let count = 0;
+    let index = 0;
+    let currentText = '';
+    let letter = '';
+
+    function type() {
+        if (count === texts.length) count = 0;
+        currentText = texts[count];
+        letter = currentText.slice(0, ++index);
+
+        document.getElementById('typing-text').textContent = letter;
+
+        if (letter.length === currentText.length) {
+            setTimeout(() => {
+                index = 0;
+                count++;
+                setTimeout(type, 500);
+            }, 1500);
+        } else {
+            setTimeout(type, 100);
+        }
+    }
+
+    type();
+
+    const cursor = document.getElementById('cursor');
+
+    document.addEventListener('mousemove', (e) => {
+        cursor.style.top = e.clientY + 'px';
+        cursor.style.left = e.clientX + 'px';
+    });
+</script>
+
+</body>
+</html>
